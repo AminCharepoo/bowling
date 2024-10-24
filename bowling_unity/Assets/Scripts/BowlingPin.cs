@@ -11,6 +11,8 @@ public class BowlingPin : MonoBehaviour
     public float stopMovementThreshold = 0.1F;
     float elapsedTime = 0f;
     public float stopTime = 2f;
+    float ultimateRemoveTimer = 6f;
+    float ultimateTime = 0f;
 
     // Start is called before the first frame update
     void Start()
@@ -25,7 +27,18 @@ public class BowlingPin : MonoBehaviour
         {
             isFallen = true;
             Debug.Log("Pin has fallen!");
-            BowlingManager.Instance.AddScore(1);
+
+            if (BowlingManager.Instance != null)
+                {
+                    BowlingManager.Instance.AddScore(1);
+                    Debug.Log("Score added! Pin count incremented.");
+                }
+            else
+                {
+                    Debug.LogError("BowlingManager.Instance is null. Score not added.");
+                }
+
+            ultimateTime += Time.deltaTime;
         }
 
         if (isFallen)
@@ -40,9 +53,9 @@ public class BowlingPin : MonoBehaviour
                 elapsedTime = 0f;
             }
 
-            if (elapsedTime >= stopTime)
+            if ((elapsedTime >= stopTime) || (ultimateTime >= ultimateRemoveTimer))
             {
-                Destroy(gameObject);
+                gameObject.SetActive(false);
             }
         }
     }
