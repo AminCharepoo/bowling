@@ -29,14 +29,14 @@ public class BowlingPin : MonoBehaviour
             Debug.Log("Pin has fallen!");
 
             if (BowlingManager.Instance != null)
-                {
-                    BowlingManager.Instance.AddScore(1);
-                    Debug.Log("Score added! Pin count incremented.");
-                }
+            {
+                BowlingManager.Instance.AddScore(1);
+                Debug.Log("Score added! Pin count incremented.");
+            }
             else
-                {
-                    Debug.LogError("BowlingManager.Instance is null. Score not added.");
-                }
+            {
+                Debug.LogError("BowlingManager.Instance is null. Score not added.");
+            }
 
             ultimateTime += Time.deltaTime;
         }
